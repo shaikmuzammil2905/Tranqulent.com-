@@ -7,7 +7,7 @@ import { motion } from "framer-motion"
 
 export default function Hero() {
   return (
-    <section className="relative bg-[#03152B] text-white overflow-hidden min-h-[480px] md:min-h-[620px] lg:min-h-[900px] h-[100vh] flex items-center">
+    <section className="relative bg-[#03152B] text-white overflow-hidden min-h-screen md:min-h-[60vh] lg:min-h-[70vh] flex items-center">
       {/* Desktop background image */}
       <div className="absolute inset-0 z-0 w-full h-full hidden md:block">
         <Image
@@ -15,7 +15,7 @@ export default function Hero() {
           alt="Advanced Semiconductor Circuit Architecture"
           fill
           priority
-          className="object-cover object-[center_right] opacity-100"
+          className="object-cover object-center opacity-100"
           sizes="100vw"
         />
         {/* Left-side subtle gradient for text contrast */}
