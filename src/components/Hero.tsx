@@ -7,20 +7,19 @@ import { motion } from "framer-motion";
 
 export default function Hero() {
   return (
-    <section className="relative bg-[#03152B] text-white overflow-hidden min-h-[480px] sm:min-h-[520px] lg:min-h-[560px] flex items-center">
-      {/* Background Image - 100% FULL SECTION COVERAGE, VIBRANT & VISIBLE */}
+    <section className="relative bg-[#03152B] text-white overflow-hidden min-h-[720px] md:min-h-[620px] lg:min-h-[900px] h-[100vh] flex items-center">
+      {/* Background Image - full coverage */}
       <div className="absolute inset-0 z-0 w-full h-full">
         <Image
-          src="/images/hero-bg-cover.jpg"
+          src="/images/hero-bg-cover.png"
           alt="Advanced Semiconductor Circuit Architecture"
           fill
           priority
           className="object-cover object-[center_right] sm:object-right opacity-100 transition-opacity duration-700"
           sizes="100vw"
         />
-        {/* Soft, minimal gradient overlay so text is crisp without dimming the chip or circuit */}
+        {/* Left-side subtle gradient for text contrast */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#03152B] via-[#03152B]/0 to-transparent hidden sm:block z-10" />
-        <div className="absolute inset-0 bg-[#03152B]/10 sm:hidden z-10" />
       </div>
 
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12 sm:py-16 lg:py-18">
