@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-brand-deep-navy: #062B55;
+  --color-brand-dark-navy: #031D3B;
+  --color-brand-navy-900: #021226;
+  --color-brand-blue: #087CF5;
+  --color-brand-electric-blue: #168BFF;
+  --color-brand-cyan: #00D2D3;
+  --color-brand-light-grey: #F4F8FC;
+  --color-brand-card-bg: #F8FAFC;
+  --color-brand-slate: #64748B;
+  --color-brand-slate-light: #94A3B8;
+  --color-background: #ffffff;
+  --color-foreground: #031D3B;
+  --font-sans: var(--font-inter);
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+/* Custom glow utilities */
+.glow-blue {
+  box-shadow: 0 0 25px -5px rgba(8, 124, 245, 0.4);
+}
+
+.glow-electric {
+  box-shadow: 0 0 35px 0px rgba(22, 139, 255, 0.35);
+}
+
+.glow-card {
+  box-shadow: 0 10px 30px -10px rgba(6, 43, 85, 0.08);
+}
+
+.glow-card-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glow-card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -15px rgba(8, 124, 245, 0.18);
+  border-color: rgba(8, 124, 245, 0.4);
+}
+
+/* Subtle circuit background pattern */
+.bg-circuit-pattern {
+  background-image: radial-gradient(rgba(8, 124, 245, 0.12) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
