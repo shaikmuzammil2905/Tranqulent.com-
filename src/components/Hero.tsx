@@ -15,12 +15,12 @@ export default function Hero() {
           alt="Advanced Semiconductor Circuit Architecture"
           fill
           priority
-          className="object-cover object-[center_right] sm:object-right opacity-95 transition-opacity duration-700"
+          className="object-cover object-[center_right] sm:object-right opacity-100 transition-opacity duration-700"
           sizes="100vw"
         />
         {/* Soft, minimal gradient overlay so text is crisp without dimming the chip or circuit */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#03152B]/80 via-[#03152B]/35 to-transparent hidden sm:block z-10" />
-        <div className="absolute inset-0 bg-[#03152B]/55 sm:hidden z-10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#03152B] via-[#03152B]/0 to-transparent hidden sm:block z-10" />
+        <div className="absolute inset-0 bg-[#03152B]/10 sm:hidden z-10" />
       </div>
 
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12 sm:py-16 lg:py-18">
