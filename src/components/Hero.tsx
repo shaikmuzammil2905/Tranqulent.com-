@@ -7,7 +7,7 @@ import { motion } from "framer-motion"
 
 export default function Hero() {
   return (
-    <section className="relative bg-[#03152B] text-white overflow-hidden min-h-screen md:min-h-[60vh] lg:min-h-[70vh] flex items-center">
+    <section className="relative bg-[#03152B] text-white overflow-hidden min-h-screen md:min-h-[45vh] lg:min-h-[55vh] flex items-center">
       {/* Desktop background image */}
       <div className="absolute inset-0 z-0 w-full h-full hidden md:block">
         <Image
@@ -18,8 +18,8 @@ export default function Hero() {
           className="object-cover object-center opacity-100"
           sizes="100vw"
         />
-        {/* Left-side subtle gradient for text contrast */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#03152B] via-[#03152B]/0 to-transparent z-10" />
+        {/* Slight left gradient for readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#03152B] via-[#03152B]/60 to-transparent z-10" />
       </div>
       {/* Mobile background image */}
       <div className="absolute inset-0 z-0 w-full h-full block md:hidden">
@@ -32,14 +32,14 @@ export default function Hero() {
           sizes="100vw"
         />
         {/* Slight left gradient for readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#03152B] via-[#03152B]/20 to-transparent z-10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#03152B] via-[#03152B]/60 to-transparent z-10" />
       </div>
 
-      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12 sm:py-16 lg:py-18">
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-8 sm:py-12 lg:py-16">
         <div className="max-w-2xl lg:max-w-xl xl:max-w-2xl">
           {/* Eyebrow */}
           <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mb-3.5 sm:mb-4">
-            <p className="text-[#168BFF] text-xs sm:text-sm font-bold tracking-[0.2em] uppercase inline-flex items-center gap-2">
+            <p className="text-[#168BFF] text-xs sm:text-sm font-bold tracking-[0.2em] uppercase inline-flex items-center gap-2 drop-shadow-[0_0_4px_rgba(0,0,0,0.6)]">
               <span>ENGINEERING</span>
               <span className="text-[#168BFF]/60">•</span>
               <span>TECHNOLOGY</span>
@@ -49,12 +49,12 @@ export default function Hero() {
           </motion.div>
 
           {/* Main H1 Heading */}
-          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.1 }} className="text-3xl sm:text-4xl md:text-5xl lg:text-[44px] xl:text-[50px] font-extrabold text-white leading-[1.15] tracking-tight mb-4 sm:mb-5">
+          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.1 }} className="text-3xl sm:text-4xl md:text-5xl lg:text-[44px] xl:text-[50px] font-extrabold text-white leading-[1.15] tracking-tight mb-4 sm:mb-5 drop-shadow-[0_0_8px_rgba(0,0,0,0.7)]">
             Engineering Intelligent Systems for <span className="text-[#168BFF] inline-block font-black">What's Next</span>
           </motion.h1>
 
           {/* Supporting Paragraph */}
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.2 }} className="text-sm sm:text-base lg:text-lg text-slate-200 font-normal leading-relaxed mb-7 sm:mb-8 max-w-xl">
+          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.2 }} className="text-sm sm:text-base lg:text-lg text-slate-200 font-normal leading-relaxed mb-7 sm:mb-8 max-w-xl drop-shadow-[0_0_6px_rgba(0,0,0,0.6)]">
             Advanced semiconductor, embedded, software and digital engineering solutions designed to accelerate innovation from concept to scale.
           </motion.p>
 
@@ -71,20 +71,12 @@ export default function Hero() {
           </motion.div>
 
           {/* Brand Tagline Row */}
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.4 }} className="flex items-center gap-3 pt-1">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="mb-3.5 sm:mb-4"
           >
-            <p className="text-[#168BFF] text-xs sm:text-sm font-bold tracking-[0.2em] uppercase inline-flex items-center gap-2">
-              <span>ENGINEERING</span>
-              <span className="text-[#168BFF]/60">•</span>
-              <span>TECHNOLOGY</span>
-              <span className="text-[#168BFF]/60">•</span>
-              <span>INNOVATION</span>
-            </p>
           </motion.div>
 
 
