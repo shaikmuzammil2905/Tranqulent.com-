@@ -27,10 +27,10 @@ export default function CapabilityCard({ item, onSelect }: CapabilityCardProps) 
   return (
     <div
       onClick={() => onSelect(item)}
-      className={`group cursor-pointer rounded-2xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 relative border ${
+      className={`group cursor-pointer rounded-2xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 ease-out relative border ${
         isFlagship
-          ? "bg-[#062B55] border-[#087CF5]/40 text-white shadow-xl hover:shadow-2xl hover:shadow-[#087CF5]/25 hover:border-[#168BFF]"
-          : "bg-white border-slate-200/80 text-brand-dark-navy shadow-sm hover:shadow-xl hover:border-brand-blue/50 hover:-translate-y-1"
+          ? "bg-[#062B55] border-[#087CF5]/40 text-white shadow-xl hover:shadow-2xl hover:shadow-[#087CF5]/30 hover:border-[#168BFF] hover:-translate-y-1.5 hover:scale-[1.02]"
+          : "bg-white border-slate-200/80 text-brand-dark-navy shadow-sm hover:shadow-xl hover:shadow-brand-blue/15 hover:border-brand-blue/50 hover:-translate-y-1.5 hover:scale-[1.02]"
       }`}
     >
       {/* Top Header: Icon + Number & Title */}
@@ -38,10 +38,10 @@ export default function CapabilityCard({ item, onSelect }: CapabilityCardProps) 
         <div className="flex items-start gap-4 mb-5">
           {/* Minimal Technical Icon */}
           <div
-            className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors ${
+            className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
               isFlagship
-                ? "bg-[#087CF5]/20 text-[#168BFF] group-hover:bg-[#087CF5] group-hover:text-white"
-                : "bg-brand-light-grey text-brand-blue group-hover:bg-brand-blue group-hover:text-white"
+                ? "bg-[#087CF5]/20 text-[#168BFF] group-hover:bg-[#087CF5] group-hover:text-white group-hover:scale-110"
+                : "bg-brand-light-grey text-brand-blue group-hover:bg-brand-blue group-hover:text-white group-hover:scale-110"
             }`}
           >
             {getIcon()}
@@ -75,7 +75,7 @@ export default function CapabilityCard({ item, onSelect }: CapabilityCardProps) 
               }`}
             >
               <span
-                className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${
+                className={`w-1.5 h-1.5 rounded-full flex-shrink-0 transition-transform group-hover:scale-125 ${
                   isFlagship ? "bg-[#168BFF]" : "bg-brand-blue"
                 }`}
               />
@@ -91,7 +91,7 @@ export default function CapabilityCard({ item, onSelect }: CapabilityCardProps) 
           className={`w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 ${
             isFlagship
               ? "bg-[#087CF5] text-white group-hover:bg-[#168BFF] group-hover:scale-110 shadow-md shadow-[#087CF5]/40"
-              : "bg-brand-light-grey text-brand-blue group-hover:bg-brand-blue group-hover:text-white group-hover:scale-110"
+              : "bg-brand-light-grey text-brand-blue group-hover:bg-brand-blue group-hover:text-white group-hover:scale-110 shadow-xs"
           }`}
         >
           <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />

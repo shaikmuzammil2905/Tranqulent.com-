@@ -29,17 +29,17 @@ export default function IndustriesPage() {
   return (
     <div className="bg-white">
       {/* Industries Banner */}
-      <section className="bg-brand-dark-navy text-white py-20 lg:py-24 relative overflow-hidden">
+      <section className="bg-brand-dark-navy text-white py-18 lg:py-22 relative overflow-hidden">
         <div className="absolute inset-0 bg-circuit-pattern opacity-10 pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl">
             <div className="text-xs sm:text-sm font-bold tracking-[0.2em] text-[#168BFF] uppercase mb-3">
               TARGET SECTORS
             </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-6">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-4">
               Industries We Serve
             </h1>
-            <p className="text-lg sm:text-xl text-slate-300 font-normal leading-relaxed">
+            <p className="text-base sm:text-lg lg:text-xl text-slate-300 font-normal leading-relaxed">
               We primarily serve the Semiconductor & Electronics industry, with a growing focus on Technology & Digital Engineering.
             </p>
           </div>
@@ -47,7 +47,7 @@ export default function IndustriesPage() {
       </section>
 
       {/* Primary & Secondary Industries */}
-      <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
+      <section className="py-18 lg:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
         {INDUSTRIES_DATA.map((ind, idx) => (
           <div
             key={ind.id}
@@ -57,7 +57,7 @@ export default function IndustriesPage() {
             }`}
           >
             <div className={`lg:col-span-6 space-y-6 ${idx % 2 === 1 ? "lg:order-2" : ""}`}>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-light-grey text-brand-blue text-xs font-bold uppercase tracking-wider">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-light-grey text-brand-blue text-xs font-bold uppercase tracking-wider">
                 <span className="w-2 h-2 rounded-full bg-brand-blue" />
                 <span>{ind.tag}</span>
               </div>
@@ -85,7 +85,7 @@ export default function IndustriesPage() {
               <div className="pt-2">
                 <Link
                   href="/contact-us"
-                  className="inline-flex items-center gap-2 bg-brand-blue hover:bg-brand-electric-blue text-white px-6 py-3 rounded-full font-semibold text-sm transition-colors shadow-sm"
+                  className="inline-flex items-center gap-2 bg-brand-blue hover:bg-brand-electric-blue text-white px-6 py-3 rounded-full font-semibold text-sm transition-all shadow-sm hover:scale-[1.02]"
                 >
                   <span>Inquire for {ind.title}</span>
                   <ArrowRight className="w-4 h-4" />
@@ -93,7 +93,7 @@ export default function IndustriesPage() {
               </div>
             </div>
 
-            <div className={`lg:col-span-6 relative aspect-[16/11] rounded-2xl overflow-hidden shadow-xl border border-slate-100 ${idx % 2 === 1 ? "lg:order-1" : ""}`}>
+            <div className={`lg:col-span-6 relative aspect-[16/10] sm:aspect-[16/9.5] rounded-2xl overflow-hidden shadow-xl border border-slate-200/80 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-brand-blue/15 ${idx % 2 === 1 ? "lg:order-1" : ""}`}>
               <Image
                 src={ind.image}
                 alt={ind.title}
@@ -106,29 +106,32 @@ export default function IndustriesPage() {
         ))}
       </section>
 
-      {/* Additional Focus Areas Grid */}
+      {/* Expanding Reach Section (image copy 14) */}
       <section className="py-20 bg-brand-light-grey border-y border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <div className="text-xs font-bold tracking-[0.2em] text-brand-blue uppercase mb-2">
+          <div className="text-center max-w-2xl mx-auto mb-14 sm:mb-16">
+            <div className="text-xs font-bold tracking-[0.2em] text-brand-blue uppercase mb-2.5">
               EXPANDING REACH
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-brand-dark-navy">
+            <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-extrabold text-brand-dark-navy tracking-tight">
               Additional Focus Areas
             </h2>
-            <p className="text-base text-brand-slate mt-3">
+            <p className="text-sm sm:text-base text-brand-slate mt-3 leading-relaxed">
               Bringing high-reliability engineering practices to technology-driven verticals.
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {ADDITIONAL_INDUSTRIES.map((ind) => (
-              <div key={ind.name} className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col justify-between">
+              <div
+                key={ind.name}
+                className="group bg-white p-7 rounded-2xl border border-slate-200/80 shadow-xs flex flex-col justify-between transition-all duration-300 ease-out hover:-translate-y-1.5 hover:scale-[1.02] hover:shadow-xl hover:shadow-brand-blue/10 hover:border-brand-blue/40 cursor-pointer"
+              >
                 <div>
-                  <div className="w-12 h-12 rounded-xl bg-brand-light-grey text-brand-blue flex items-center justify-center mb-5">
+                  <div className="w-12 h-12 rounded-xl bg-brand-light-grey text-brand-blue flex items-center justify-center mb-5 transition-all duration-300 group-hover:scale-110 group-hover:bg-brand-blue group-hover:text-white shadow-2xs">
                     {getAdditionalIcon(ind.icon)}
                   </div>
-                  <h3 className="text-lg font-bold text-brand-dark-navy mb-2">
+                  <h3 className="text-lg font-bold text-brand-dark-navy mb-2.5 transition-colors group-hover:text-brand-blue">
                     {ind.name}
                   </h3>
                 </div>

@@ -5,6 +5,7 @@ export interface ServiceItem {
   title: string;
   shortDescription: string;
   fullOverview: string;
+  image: string;
   isFlagship?: boolean;
   services: string[];
   keyChallenges: string[];
@@ -31,6 +32,7 @@ export const CAPABILITIES_DATA: ServiceItem[] = [
     title: "Semiconductor Engineering",
     shortDescription: "Comprehensive silicon design, verification, and implementation solutions from architecture to tape-out.",
     fullOverview: "Tranquelent delivers end-to-end semiconductor design and engineering services across advanced technology nodes. Our engineering teams bring deep specialization in ASIC/SoC development, front-end design, advanced verification methodologies (UVM/SystemVerilog), and physical design closure.",
+    image: "/images/service-semiconductor.jpg",
     isFlagship: true,
     iconType: "chip",
     services: [
@@ -63,6 +65,7 @@ export const CAPABILITIES_DATA: ServiceItem[] = [
     title: "Embedded & Hardware Engineering",
     shortDescription: "Full-lifecycle hardware and firmware engineering for intelligent, connected, and mission-critical devices.",
     fullOverview: "We bridge the gap between silicon and software by designing robust embedded architectures, custom board support packages, real-time firmware, and FPGA accelerators engineered for extreme reliability and high performance.",
+    image: "/images/service-embedded.jpg",
     isFlagship: false,
     iconType: "embedded",
     services: [
@@ -96,6 +99,7 @@ export const CAPABILITIES_DATA: ServiceItem[] = [
     title: "Software & Digital Engineering",
     shortDescription: "Scalable cloud architectures, AI pipelines, modern applications, and digital platforms.",
     fullOverview: "Our software engineering discipline helps technology enterprises translate complex device and sensor data into intelligent cloud applications, automated pipelines, and responsive digital ecosystems.",
+    image: "/images/service-software.jpg",
     isFlagship: false,
     iconType: "software",
     services: [
@@ -128,6 +132,7 @@ export const CAPABILITIES_DATA: ServiceItem[] = [
     title: "Engineering & Technology Consulting",
     shortDescription: "Strategic technical advisory, architecture modernization, and engineering transformation.",
     fullOverview: "Tranquelent partners with CTOs, VP of Engineering, and technical leaders to formulate actionable roadmaps, assess architectural feasibility, evaluate new technology stacks, and execute organizational transformation.",
+    image: "/images/service-consulting.jpg",
     isFlagship: false,
     iconType: "consulting",
     services: [
@@ -210,7 +215,7 @@ export const INDUSTRIES_DATA: IndustryItem[] = [
     tag: "Our Core Strength",
     isPrimary: true,
     description: "Empowering fabless semiconductor companies, IDMs, and systems OEMs with world-class silicon design, verification, and validation services.",
-    image: "/images/ind-semiconductor-bg.jpg",
+    image: "/images/ind-semiconductor-soc.jpg",
     capabilities: [
       "Advanced Node ASIC/SoC Engineering",
       "Silicon Verification & Emulation",
@@ -224,7 +229,7 @@ export const INDUSTRIES_DATA: IndustryItem[] = [
     tag: "Our Secondary Focus",
     isSecondary: true,
     description: "Accelerating modern digital platforms, cloud infrastructure, AI engineering, and intelligent system software.",
-    image: "/images/ind-digital-bg.jpg",
+    image: "/images/ind-digital-robotics.jpg",
     capabilities: [
       "Cloud-Native Infrastructure & APIs",
       "Edge-to-Cloud Telemetry & Analytics",

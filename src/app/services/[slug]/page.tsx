@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft, ArrowRight, CheckCircle2, AlertCircle, Cpu, Layers, Cloud, Users } from "lucide-react";
 import { CAPABILITIES_DATA } from "@/data/websiteData";
 import CTASection from "@/components/CTASection";
@@ -38,12 +39,12 @@ export default async function ServiceDetailPage({
   return (
     <div className="bg-white">
       {/* Detail Header Banner */}
-      <section className="bg-brand-dark-navy text-white py-20 lg:py-24 relative overflow-hidden">
+      <section className="bg-brand-dark-navy text-white py-18 lg:py-22 relative overflow-hidden">
         <div className="absolute inset-0 bg-circuit-pattern opacity-10 pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <Link
             href="/services"
-            className="inline-flex items-center text-xs font-bold tracking-widest text-[#168BFF] uppercase hover:text-white transition-colors mb-6 gap-1"
+            className="inline-flex items-center text-xs font-bold tracking-widest text-[#168BFF] uppercase hover:text-white transition-colors mb-5 gap-1"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Back to All Capabilities</span>
@@ -53,27 +54,38 @@ export default async function ServiceDetailPage({
             <span className="text-xs font-bold tracking-[0.2em] text-[#168BFF] uppercase block mb-2">
               CAPABILITY {service.number}
             </span>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-5">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-4">
               {service.title}
             </h1>
-            <p className="text-lg sm:text-xl text-slate-300 font-normal leading-relaxed">
+            <p className="text-base sm:text-lg lg:text-xl text-slate-300 font-normal leading-relaxed">
               {service.shortDescription}
             </p>
           </div>
         </div>
       </section>
 
-      {/* Main Content */}
-      <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Main Content with Service Image */}
+      <section className="py-18 lg:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           
           <div className="lg:col-span-8 space-y-12">
+            {/* Featured Service Image with Smooth Popup Hover */}
+            <div className="group relative aspect-[16/8.5] sm:aspect-[16/8] rounded-2xl overflow-hidden shadow-lg border border-slate-200/80 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-brand-blue/15">
+              <Image
+                src={service.image}
+                alt={`${service.title} Engineering Solutions`}
+                fill
+                className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                sizes="(max-width: 1024px) 100vw, 65vw"
+              />
+            </div>
+
             {/* Overview */}
             <div>
-              <h2 className="text-xs font-bold tracking-widest text-brand-blue uppercase mb-3">
+              <h2 className="text-xs font-bold tracking-widest text-brand-blue uppercase mb-2.5">
                 DOMAIN OVERVIEW
               </h2>
-              <h3 className="text-2xl font-bold text-brand-dark-navy mb-4">
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-brand-dark-navy mb-4">
                 Engineering Excellence & Technical Execution
               </h3>
               <p className="text-base sm:text-lg text-brand-slate leading-relaxed font-normal">
@@ -90,7 +102,7 @@ export default async function ServiceDetailPage({
                 {service.services.map((svc) => (
                   <div
                     key={svc}
-                    className="flex items-start gap-3 p-4 rounded-xl bg-brand-light-grey border border-slate-100"
+                    className="flex items-start gap-3 p-4 rounded-xl bg-brand-light-grey border border-slate-200/80 transition-all duration-200 hover:bg-white hover:shadow-xs hover:border-brand-blue/30"
                   >
                     <CheckCircle2 className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" />
                     <div>
@@ -102,8 +114,8 @@ export default async function ServiceDetailPage({
             </div>
 
             {/* Engineering Challenges & How Tranquelent Supports */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
-              <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+              <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs transition-all duration-300 hover:shadow-md hover:border-brand-blue/30">
                 <h4 className="text-sm font-bold text-brand-dark-navy uppercase tracking-wider mb-4 flex items-center gap-2">
                   <AlertCircle className="w-4 h-4 text-brand-blue" />
                   Key Challenges Solved
@@ -118,7 +130,7 @@ export default async function ServiceDetailPage({
                 </ul>
               </div>
 
-              <div className="bg-brand-dark-navy text-white rounded-2xl p-6 border border-white/10 shadow-sm">
+              <div className="bg-brand-dark-navy text-white rounded-2xl p-6 border border-white/10 shadow-xs transition-all duration-300 hover:shadow-md hover:border-brand-blue/30">
                 <h4 className="text-sm font-bold text-[#168BFF] uppercase tracking-wider mb-4 flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-[#168BFF]" />
                   How Tranquelent Delivers
@@ -149,7 +161,7 @@ export default async function ServiceDetailPage({
               </p>
               <Link
                 href="/contact-us"
-                className="w-full bg-brand-blue hover:bg-brand-electric-blue text-white py-3.5 px-6 rounded-full font-semibold text-center text-sm inline-flex items-center justify-center gap-2 transition-colors shadow-md"
+                className="w-full bg-brand-blue hover:bg-brand-electric-blue text-white py-3.5 px-6 rounded-full font-semibold text-center text-sm inline-flex items-center justify-center gap-2 transition-all shadow-md hover:scale-[1.02]"
               >
                 <span>Talk to Our Experts</span>
                 <ArrowRight className="w-4 h-4" />
