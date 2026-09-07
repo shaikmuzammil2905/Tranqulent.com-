@@ -14,12 +14,12 @@ export default function CTASection() {
           src="/images/cta-banner-bg.jpg"
           alt="Global Engineering Technology Network"
           fill
-          className="object-cover object-center sm:object-right opacity-85 transition-opacity duration-500"
+          className="object-cover object-[center_right] sm:object-right opacity-90 transition-opacity duration-500"
           sizes="100vw"
         />
-        {/* Subtle overlay gradient to keep text readable while keeping background vivid */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#03182E]/90 via-[#03182E]/60 to-transparent hidden sm:block" />
-        <div className="absolute inset-0 bg-[#03182E]/70 sm:hidden" />
+        {/* Subtle overlay gradient to keep text readable while keeping globe vibrant on desktop and mobile */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#03182E]/90 via-[#03182E]/55 to-transparent hidden sm:block" />
+        <div className="absolute inset-0 bg-[#03182E]/65 sm:hidden" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
