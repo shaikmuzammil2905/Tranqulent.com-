@@ -7,7 +7,7 @@ import { motion } from "framer-motion"
 
 export default function Hero() {
   return (
-    <section className="relative bg-[#03152B] text-white overflow-hidden min-h-screen md:min-h-[45vh] lg:min-h-[55vh] flex items-center">
+    <section className="relative bg-[#03152B] text-white overflow-hidden min-h-[55vh] md:min-h-[45vh] lg:min-h-[55vh] flex items-center">
       {/* Desktop background image */}
       <div className="absolute inset-0 z-0 w-full h-full hidden md:block">
         <Image
