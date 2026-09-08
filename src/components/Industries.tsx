@@ -77,9 +77,7 @@ export default function Industries() {
               <h3 className="text-lg sm:text-xl font-extrabold text-white mb-1 group-hover:text-brand-electric-blue transition-colors">
                 Semiconductor & Electronics
               </h3>
-              <p className="text-xs sm:text-sm font-medium text-slate-300">
-                Our core strength
-              </p>
+
             </div>
           </Link>
 
@@ -101,9 +99,7 @@ export default function Industries() {
               <h3 className="text-lg sm:text-xl font-extrabold text-white mb-1 group-hover:text-brand-electric-blue transition-colors">
                 Technology & Digital Engineering
               </h3>
-              <p className="text-xs sm:text-sm font-medium text-slate-300">
-                Our secondary focus
-              </p>
+
             </div>
           </Link>
 
