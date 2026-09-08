@@ -89,7 +89,7 @@ export default function Footer() {
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-[#168BFF] flex-shrink-0 mt-0.5" />
                 <div>
-                  <div className="font-semibold text-white">Austin (Headquarters)</div>
+                  <div className="font-semibold text-white">USA</div>
                   <div className="text-slate-400 text-xs">5900 Balcones Drive STE 100</div>
                   <div className="text-slate-400 text-xs">Austin, TX 78731</div>
                 </div>
