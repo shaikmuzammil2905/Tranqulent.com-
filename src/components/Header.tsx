@@ -4,7 +4,21 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown, ArrowRight, Cpu, Layers, Code, Briefcase } from "lucide-react";
+import {
+  Menu,
+  X,
+  ChevronDown,
+  ArrowRight,
+  Cpu,
+  Layers,
+  Code,
+  Briefcase,
+  Sparkles,
+  Car,
+  Factory,
+  Radio,
+  ShieldCheck,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navItems = [
@@ -39,7 +53,54 @@ const navItems = [
       },
     ],
   },
-  { name: "Industries", href: "/industries" },
+  {
+    name: "Industries",
+    href: "/industries",
+    dropdown: [
+      {
+        name: "Semiconductor & Electronics",
+        href: "/industries#semiconductor",
+        description: "ASIC/SoC, Silicon Verification & Emulation",
+        icon: Cpu,
+      },
+      {
+        name: "Technology & Digital Engineering",
+        href: "/industries#digital",
+        description: "Cloud Platforms, Edge Telemetry & Modernization",
+        icon: Layers,
+      },
+      {
+        name: "AI Solutions & Intelligent Systems",
+        href: "/industries#ai-solutions",
+        description: "Edge AI, Vision Pipelines & Neural Processing",
+        icon: Sparkles,
+      },
+      {
+        name: "Automotive & Mobility",
+        href: "/industries#automotive",
+        description: "ADAS, EV Powertrain, AUTOSAR & Infotainment",
+        icon: Car,
+      },
+      {
+        name: "Industrial Technology",
+        href: "/industries#industrial",
+        description: "Robotics, Deterministic Control & Smart Factory",
+        icon: Factory,
+      },
+      {
+        name: "Telecom & Networking",
+        href: "/industries#telecom",
+        description: "5G/6G Baseband, Optical Fabrics & Packet Acceleration",
+        icon: Radio,
+      },
+      {
+        name: "Aerospace & Defense Systems",
+        href: "/industries#aerospace",
+        description: "Avionics, Radar Signal Processing & Satcom Meshes",
+        icon: ShieldCheck,
+      },
+    ],
+  },
   { name: "About Us", href: "/about-us" },
   { name: "Careers", href: "/careers" },
   { name: "Contact", href: "/contact-us" },
@@ -48,8 +109,8 @@ const navItems = [
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
-  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [mobileExpandedSection, setMobileExpandedSection] = useState<string | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -59,6 +120,10 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const toggleMobileSection = (name: string) => {
+    setMobileExpandedSection(mobileExpandedSection === name ? null : name);
+  };
 
   return (
     <header
@@ -88,14 +153,15 @@ export default function Header() {
           <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2">
             {navItems.map((item) => {
               const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+              const isDropdownOpen = activeDropdown === item.name;
 
               if (item.dropdown) {
                 return (
                   <div
                     key={item.name}
                     className="relative"
-                    onMouseEnter={() => setServicesDropdownOpen(true)}
-                    onMouseLeave={() => setServicesDropdownOpen(false)}
+                    onMouseEnter={() => setActiveDropdown(item.name)}
+                    onMouseLeave={() => setActiveDropdown(null)}
                   >
                     <Link
                       href={item.href}
@@ -108,20 +174,22 @@ export default function Header() {
                       {item.name}
                       <ChevronDown
                         className={`w-4 h-4 transition-transform duration-200 ${
-                          servicesDropdownOpen ? "rotate-180 text-brand-blue" : "text-brand-slate"
+                          isDropdownOpen ? "rotate-180 text-brand-blue" : "text-brand-slate"
                         }`}
                       />
                     </Link>
 
-                    {/* Services Dropdown Menu */}
+                    {/* Desktop Dropdown Menu */}
                     <AnimatePresence>
-                      {servicesDropdownOpen && (
+                      {isDropdownOpen && (
                         <motion.div
                           initial={{ opacity: 0, y: 8, scale: 0.98 }}
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: 8, scale: 0.98 }}
                           transition={{ duration: 0.2 }}
-                          className="absolute top-full left-0 w-96 bg-white shadow-xl rounded-xl p-3 border border-slate-100 ring-1 ring-black/5 mt-1"
+                          className={`absolute top-full left-0 ${
+                            item.dropdown.length > 5 ? "w-[440px]" : "w-96"
+                          } bg-white shadow-xl rounded-xl p-3 border border-slate-100 ring-1 ring-black/5 mt-1 max-h-[80vh] overflow-y-auto z-50`}
                         >
                           <div className="space-y-1">
                             {item.dropdown.map((subItem) => {
@@ -130,17 +198,17 @@ export default function Header() {
                                 <Link
                                   key={subItem.name}
                                   href={subItem.href}
-                                  onClick={() => setServicesDropdownOpen(false)}
+                                  onClick={() => setActiveDropdown(null)}
                                   className="group flex items-start gap-3 p-2.5 rounded-lg hover:bg-brand-light-grey transition-all"
                                 >
-                                  <div className="p-2 rounded-md bg-brand-light-grey text-brand-blue group-hover:bg-brand-blue group-hover:text-white transition-colors mt-0.5">
+                                  <div className="p-2 rounded-md bg-brand-light-grey text-brand-blue group-hover:bg-brand-blue group-hover:text-white transition-colors mt-0.5 flex-shrink-0">
                                     <SubIcon className="w-4 h-4" />
                                   </div>
                                   <div>
-                                    <div className="text-sm font-bold text-brand-dark-navy group-hover:text-brand-blue transition-colors">
+                                    <div className="text-sm font-bold text-brand-dark-navy group-hover:text-brand-blue transition-colors leading-snug">
                                       {subItem.name}
                                     </div>
-                                    <div className="text-xs text-brand-slate line-clamp-1">
+                                    <div className="text-xs text-brand-slate line-clamp-1 mt-0.5">
                                       {subItem.description}
                                     </div>
                                   </div>
@@ -209,26 +277,37 @@ export default function Header() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25 }}
-            className="lg:hidden bg-white border-t border-slate-100 shadow-xl overflow-hidden"
+            className="lg:hidden bg-white border-t border-slate-100 shadow-xl overflow-hidden max-h-[85vh] overflow-y-auto"
           >
             <div className="max-w-7xl mx-auto px-4 py-4 space-y-1 sm:px-6">
               {navItems.map((item) => {
                 if (item.dropdown) {
+                  const isExpanded = mobileExpandedSection === item.name;
                   return (
                     <div key={item.name} className="py-1">
-                      <button
-                        onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
-                        className="w-full flex justify-between items-center px-3 py-2.5 text-base font-bold text-brand-dark-navy hover:text-brand-blue rounded-lg"
-                      >
-                        <span>{item.name}</span>
-                        <ChevronDown
-                          className={`w-4 h-4 transition-transform duration-200 ${
-                            mobileServicesOpen ? "rotate-180 text-brand-blue" : "text-brand-slate"
-                          }`}
-                        />
-                      </button>
+                      <div className="flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-brand-light-grey/60">
+                        <Link
+                          href={item.href}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="text-base font-bold text-brand-dark-navy hover:text-brand-blue flex-1"
+                        >
+                          {item.name}
+                        </Link>
+                        <button
+                          type="button"
+                          onClick={() => toggleMobileSection(item.name)}
+                          aria-label={`Toggle ${item.name} menu`}
+                          className="p-1.5 text-brand-slate hover:text-brand-blue rounded-md"
+                        >
+                          <ChevronDown
+                            className={`w-5 h-5 transition-transform duration-200 ${
+                              isExpanded ? "rotate-180 text-brand-blue" : "text-brand-slate"
+                            }`}
+                          />
+                        </button>
+                      </div>
                       <AnimatePresence>
-                        {mobileServicesOpen && (
+                        {isExpanded && (
                           <motion.div
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: "auto" }}
@@ -236,11 +315,11 @@ export default function Header() {
                             className="pl-4 pr-2 py-1 space-y-1 bg-brand-light-grey/60 rounded-lg mt-1"
                           >
                             <Link
-                              href="/services"
+                              href={item.href}
                               onClick={() => setMobileMenuOpen(false)}
                               className="block px-3 py-2 text-sm font-bold text-brand-blue"
                             >
-                              All Capabilities →
+                              All {item.name} Overview →
                             </Link>
                             {item.dropdown.map((sub) => (
                               <Link
@@ -275,7 +354,7 @@ export default function Header() {
                 <Link
                   href="/contact-us"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full flex items-center justify-center gap-2 bg-brand-blue hover:bg-brand-electric-blue text-white py-3 px-6 rounded-full font-semibold text-center text-sm transition-all"
+                  className="w-full flex items-center justify-center gap-2 bg-brand-blue hover:bg-brand-electric-blue text-white py-3 px-6 rounded-full font-semibold text-center text-sm transition-all shadow-md shadow-brand-blue/20"
                 >
                   <span>Talk to Our Experts</span>
                   <ArrowRight className="w-4 h-4" />

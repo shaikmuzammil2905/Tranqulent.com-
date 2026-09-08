@@ -1,10 +1,14 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Cpu, Globe, ChevronsRight, Scale } from "lucide-react";
-import { WHY_TRANQUELENT_PILLARS } from "@/data/websiteData";
+import { Cpu, Globe, ChevronsRight, Scale, ArrowUpRight } from "lucide-react";
+import { WHY_TRANQUELENT_PILLARS, WhyPillarItem } from "@/data/websiteData";
+import DetailModal, { DetailModalData } from "./DetailModal";
 
 export default function WhyTranquelent() {
+  const [activePillar, setActivePillar] = useState<WhyPillarItem | null>(null);
+
   const getIcon = (iconName: string) => {
     switch (iconName) {
       case "expertise":
@@ -19,6 +23,20 @@ export default function WhyTranquelent() {
         return <Cpu className="w-5 h-5" />;
     }
   };
+
+  const modalData: DetailModalData | null = activePillar
+    ? {
+        title: activePillar.title,
+        category: `Why Tranquelent • ${activePillar.title}`,
+        image: activePillar.image,
+        imageAlt: activePillar.title,
+        overview: activePillar.fullOverview,
+        capabilitiesTitle: "Key Strengths & Differentiators",
+        capabilities: activePillar.keyStrengths,
+        ctaText: "Talk to Our Experts",
+        ctaHref: "/contact-us",
+      }
+    : null;
 
   return (
     <section className="py-18 lg:py-24 bg-white relative">
@@ -43,9 +61,11 @@ export default function WhyTranquelent() {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-0 lg:divide-x lg:divide-slate-200"
         >
           {WHY_TRANQUELENT_PILLARS.map((pillar, idx) => (
-            <div
+            <button
               key={pillar.title}
-              className={`group flex flex-col p-4 sm:p-5 lg:p-0 rounded-2xl lg:rounded-none transition-all duration-300 hover:bg-brand-light-grey/40 lg:hover:bg-transparent ${
+              type="button"
+              onClick={() => setActivePillar(pillar)}
+              className={`group flex flex-col p-4 sm:p-5 lg:p-0 rounded-2xl lg:rounded-none transition-all duration-300 hover:bg-brand-light-grey/40 lg:hover:bg-transparent text-left cursor-pointer ${
                 idx === 0 ? "lg:pr-8" : idx === 3 ? "lg:pl-8" : "lg:px-8"
               }`}
             >
@@ -54,20 +74,35 @@ export default function WhyTranquelent() {
                 {getIcon(pillar.icon)}
               </div>
 
-              {/* Pillar Title */}
-              <h3 className="text-lg font-bold text-brand-dark-navy mb-2.5 transition-colors group-hover:text-brand-blue">
-                {pillar.title}
-              </h3>
+              {/* Pillar Title with Arrow */}
+              <div className="flex items-center gap-2 mb-2.5">
+                <h3 className="text-lg font-bold text-brand-dark-navy transition-colors group-hover:text-brand-blue">
+                  {pillar.title}
+                </h3>
+                <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-brand-blue transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 opacity-0 group-hover:opacity-100" />
+              </div>
 
               {/* Pillar Description */}
               <p className="text-sm text-brand-slate leading-relaxed font-normal">
                 {pillar.description}
               </p>
-            </div>
+
+              {/* Explore link hint */}
+              <span className="mt-3 text-xs font-semibold text-brand-blue opacity-0 group-hover:opacity-100 transition-opacity">
+                Click to explore →
+              </span>
+            </button>
           ))}
         </motion.div>
 
       </div>
+
+      {/* Interactive Detail Modal for each pillar */}
+      <DetailModal
+        isOpen={Boolean(activePillar)}
+        onClose={() => setActivePillar(null)}
+        data={modalData}
+      />
     </section>
   );
 }

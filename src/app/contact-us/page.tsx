@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { MapPin, Globe, Send, CheckCircle2, ArrowRight } from "lucide-react";
+import { MapPin, Globe, Send, CheckCircle2, ArrowRight, Mail } from "lucide-react";
 import { COMPANY_INFO } from "@/data/websiteData";
 
 export default function ContactPage() {
@@ -206,7 +206,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <div className="text-xs font-bold tracking-wider text-brand-electric-blue uppercase">
-                    USA (Headquarters)
+                    USA
                   </div>
                   <div className="text-base font-bold text-white mt-1">
                     5900 Balcones Drive STE 100
@@ -224,7 +224,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <div className="text-xs font-bold tracking-wider text-brand-electric-blue uppercase">
-                    India Engineering Center
+                    India
                   </div>
                   <div className="text-base font-bold text-white mt-1">
                     Bangalore
@@ -232,6 +232,24 @@ export default function ContactPage() {
                   <div className="text-sm text-slate-300">
                     Karnataka, India
                   </div>
+                </div>
+              </div>
+
+              {/* Email Contact */}
+              <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/10">
+                <div className="w-10 h-10 rounded-lg bg-brand-blue/20 flex items-center justify-center flex-shrink-0 text-brand-electric-blue">
+                  <Mail className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold tracking-wider text-brand-electric-blue uppercase">
+                    Email
+                  </div>
+                  <a
+                    href="mailto:contact@tranquelent.com"
+                    className="text-base font-bold text-white mt-1 block hover:text-brand-electric-blue transition-colors"
+                  >
+                    contact@tranquelent.com
+                  </a>
                 </div>
               </div>
 

@@ -1,29 +1,52 @@
-import type { Metadata } from "next";
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Cpu, Layers, Code, Briefcase, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Cpu, Layers, Code, Briefcase, ArrowUpRight } from "lucide-react";
 import CTASection from "@/components/CTASection";
+import { ABOUT_EXPERTISE, ABOUT_APPROACH, AboutExpertiseItem, AboutApproachItem } from "@/data/websiteData";
+import DetailModal, { DetailModalData } from "@/components/DetailModal";
 
-export const metadata: Metadata = {
-  title: "About Us | Tranquelent - Engineering What's Next",
-  description: "Tranquelent is a semiconductor and engineering technology services company helping technology-driven organizations engineer intelligent systems across silicon, embedded platforms and software.",
+const expertiseIcons: Record<string, React.ElementType> = {
+  semiconductor: Cpu,
+  embedded: Layers,
+  software: Code,
+  consulting: Briefcase,
 };
 
-const expertiseList = [
-  { name: "Semiconductor Engineering", icon: Cpu, desc: "VLSI, ASIC/SoC, RTL Design, UVM Verification, Physical Design" },
-  { name: "Embedded & Hardware Engineering", icon: Layers, desc: "Firmware, RTOS, FPGA, Board Bring-Up, Connected Devices" },
-  { name: "Software & Digital Engineering", icon: Code, desc: "Cloud Architecture, AI & Data Engineering, Platforms" },
-  { name: "Engineering & Technology Consulting", icon: Briefcase, desc: "System Architecture, Roadmaps, Technical Advisory" },
-];
-
-const corePillars = [
-  { title: "Engineering Excellence", desc: "Rigorous technical methodologies and specialized domain depth." },
-  { title: "Collaboration", desc: "Working as a seamless extension of your engineering leadership and teams." },
-  { title: "Innovation", desc: "Translating cutting-edge silicon and software concepts into robust systems." },
-  { title: "Scalable Delivery", desc: "Flexible engagement models designed to adapt from concept to scale." },
-];
-
 export default function AboutUsPage() {
+  const [activeExpertise, setActiveExpertise] = useState<AboutExpertiseItem | null>(null);
+  const [activeApproach, setActiveApproach] = useState<AboutApproachItem | null>(null);
+
+  const expertiseModalData: DetailModalData | null = activeExpertise
+    ? {
+        title: activeExpertise.name,
+        category: `About Us • ${activeExpertise.name}`,
+        image: activeExpertise.image,
+        imageAlt: activeExpertise.name,
+        overview: activeExpertise.fullOverview,
+        capabilitiesTitle: "Core Engineering Capabilities",
+        capabilities: activeExpertise.capabilities,
+        ctaText: `Inquire for ${activeExpertise.name}`,
+        ctaHref: "/contact-us",
+      }
+    : null;
+
+  const approachModalData: DetailModalData | null = activeApproach
+    ? {
+        title: activeApproach.title,
+        category: `Our Approach • ${activeApproach.title}`,
+        image: activeApproach.image,
+        imageAlt: activeApproach.title,
+        overview: activeApproach.fullOverview,
+        capabilitiesTitle: "Key Principles",
+        capabilities: activeApproach.keyPrinciples,
+        ctaText: "Talk to Our Experts",
+        ctaHref: "/contact-us",
+      }
+    : null;
+
   return (
     <div className="bg-white">
       {/* About Us Hero Banner */}
@@ -35,7 +58,7 @@ export default function AboutUsPage() {
               ABOUT TRANQUELENT
             </div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-5">
-              Engineering What's Next
+              Engineering What&apos;s Next
             </h1>
             <p className="text-base sm:text-lg lg:text-xl text-slate-300 font-normal leading-relaxed">
               Tranquelent is a semiconductor and engineering technology services company helping technology-driven organizations solve complex engineering challenges across silicon, embedded platforms and software.
@@ -83,7 +106,7 @@ export default function AboutUsPage() {
         </div>
       </section>
 
-      {/* Core Components / Our Areas of Expertise Section (image copy 7) */}
+      {/* Core Components / Our Areas of Expertise Section - CLICKABLE POPUPS */}
       <section className="py-20 bg-brand-light-grey border-y border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-14 sm:mb-16">
@@ -96,32 +119,40 @@ export default function AboutUsPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {expertiseList.map((exp) => {
-              const Icon = exp.icon;
+            {ABOUT_EXPERTISE.map((exp) => {
+              const Icon = expertiseIcons[exp.slug] || Cpu;
               return (
-                <div
+                <button
                   key={exp.name}
-                  className="group bg-white p-7 rounded-2xl border border-slate-200/80 shadow-xs flex flex-col justify-between transition-all duration-300 ease-out hover:-translate-y-1.5 hover:scale-[1.02] hover:shadow-xl hover:shadow-brand-blue/10 hover:border-brand-blue/40 cursor-pointer"
+                  type="button"
+                  onClick={() => setActiveExpertise(exp)}
+                  className="group bg-white p-7 rounded-2xl border border-slate-200/80 shadow-xs flex flex-col justify-between transition-all duration-300 ease-out hover:-translate-y-1.5 hover:scale-[1.02] hover:shadow-xl hover:shadow-brand-blue/10 hover:border-brand-blue/40 cursor-pointer text-left"
                 >
                   <div>
                     <div className="w-12 h-12 rounded-xl bg-brand-light-grey text-brand-blue flex items-center justify-center mb-5 transition-all duration-300 group-hover:scale-110 group-hover:bg-brand-blue group-hover:text-white shadow-2xs">
                       <Icon className="w-6 h-6" />
                     </div>
-                    <h3 className="text-lg font-bold text-brand-dark-navy mb-2.5 transition-colors group-hover:text-brand-blue">
-                      {exp.name}
-                    </h3>
+                    <div className="flex items-center gap-2 mb-2.5">
+                      <h3 className="text-lg font-bold text-brand-dark-navy transition-colors group-hover:text-brand-blue">
+                        {exp.name}
+                      </h3>
+                      <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-brand-blue transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 opacity-0 group-hover:opacity-100" />
+                    </div>
                   </div>
                   <p className="text-xs sm:text-sm text-brand-slate leading-relaxed mt-2">
                     {exp.desc}
                   </p>
-                </div>
+                  <span className="mt-3 text-xs font-semibold text-brand-blue opacity-0 group-hover:opacity-100 transition-opacity">
+                    Click to explore →
+                  </span>
+                </button>
               );
             })}
           </div>
         </div>
       </section>
 
-      {/* Our Engineering Approach (Our Approaches Section) */}
+      {/* Our Engineering Approach - CLICKABLE POPUPS */}
       <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-14 sm:mb-16">
           <div className="text-xs font-bold tracking-[0.2em] text-brand-blue uppercase mb-2.5">
@@ -133,26 +164,48 @@ export default function AboutUsPage() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {corePillars.map((p) => (
-            <div
+          {ABOUT_APPROACH.map((p) => (
+            <button
               key={p.title}
-              className="group p-7 rounded-2xl bg-white border border-slate-200/80 shadow-xs transition-all duration-300 ease-out hover:-translate-y-1.5 hover:scale-[1.02] hover:shadow-xl hover:shadow-brand-blue/10 hover:border-brand-blue/40"
+              type="button"
+              onClick={() => setActiveApproach(p)}
+              className="group p-7 rounded-2xl bg-white border border-slate-200/80 shadow-xs transition-all duration-300 ease-out hover:-translate-y-1.5 hover:scale-[1.02] hover:shadow-xl hover:shadow-brand-blue/10 hover:border-brand-blue/40 text-left cursor-pointer flex flex-col"
             >
               <div className="w-10 h-10 rounded-lg bg-brand-light-grey flex items-center justify-center mb-5 text-brand-blue group-hover:bg-brand-blue group-hover:text-white transition-colors duration-300">
-                <CheckCircle2 className="w-5 h-5" />
+                <Cpu className="w-5 h-5" />
               </div>
-              <h3 className="text-lg font-bold text-brand-dark-navy mb-2.5 transition-colors group-hover:text-brand-blue">
-                {p.title}
-              </h3>
+              <div className="flex items-center gap-2 mb-2.5">
+                <h3 className="text-lg font-bold text-brand-dark-navy transition-colors group-hover:text-brand-blue">
+                  {p.title}
+                </h3>
+                <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-brand-blue transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 opacity-0 group-hover:opacity-100" />
+              </div>
               <p className="text-sm text-brand-slate leading-relaxed">
                 {p.desc}
               </p>
-            </div>
+              <span className="mt-3 text-xs font-semibold text-brand-blue opacity-0 group-hover:opacity-100 transition-opacity">
+                Click to explore →
+              </span>
+            </button>
           ))}
         </div>
       </section>
 
       <CTASection />
+
+      {/* Expertise Detail Modal */}
+      <DetailModal
+        isOpen={Boolean(activeExpertise)}
+        onClose={() => setActiveExpertise(null)}
+        data={expertiseModalData}
+      />
+
+      {/* Approach Detail Modal */}
+      <DetailModal
+        isOpen={Boolean(activeApproach)}
+        onClose={() => setActiveApproach(null)}
+        data={approachModalData}
+      />
     </div>
   );
 }

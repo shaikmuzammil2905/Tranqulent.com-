@@ -15,14 +15,14 @@ export default function Capabilities() {
     <section className="py-20 lg:py-28 bg-[#F4F8FC] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
+        {/* Section Header: Our Core Services */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 lg:mb-16 gap-4">
           <div>
             <div className="text-xs sm:text-sm font-bold tracking-[0.2em] text-brand-blue uppercase mb-2">
-              OUR CAPABILITIES
+              OUR SERVICES
             </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-brand-dark-navy tracking-tight">
-              Core Engineering Capabilities
+              Our Core Services
             </h2>
           </div>
 
@@ -35,7 +35,7 @@ export default function Capabilities() {
           </Link>
         </div>
 
-        {/* 4 Cards Grid */}
+        {/* 4 Service Cards Grid */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}

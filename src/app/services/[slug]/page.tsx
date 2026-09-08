@@ -118,10 +118,10 @@ export default async function ServiceDetailPage({
               <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs transition-all duration-300 hover:shadow-md hover:border-brand-blue/30">
                 <h4 className="text-sm font-bold text-brand-dark-navy uppercase tracking-wider mb-4 flex items-center gap-2">
                   <AlertCircle className="w-4 h-4 text-brand-blue" />
-                  Key Challenges Solved
+                  Engineering Deliverables
                 </h4>
                 <ul className="space-y-3 text-sm text-brand-slate">
-                  {service.keyChallenges.map((ch) => (
+                  {service.serviceDeliverables.map((ch: string) => (
                     <li key={ch} className="flex items-start gap-2">
                       <span className="text-brand-blue font-bold">•</span>
                       <span>{ch}</span>

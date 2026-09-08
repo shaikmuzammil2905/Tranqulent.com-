@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, MapPin, Globe } from "lucide-react";
+import { ArrowRight, MapPin, Globe, Mail } from "lucide-react";
 import { COMPANY_INFO, CAPABILITIES_DATA } from "@/data/websiteData";
 
 export default function Footer() {
@@ -100,6 +100,18 @@ export default function Footer() {
                 <div>
                   <div className="font-semibold text-white">India</div>
                   <div className="text-slate-400 text-xs">Bangalore, Karnataka, India</div>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-2.5 pt-1">
+                <Mail className="w-4 h-4 text-[#168BFF] flex-shrink-0 mt-0.5" />
+                <div>
+                  <a
+                    href="mailto:contact@tranquelent.com"
+                    className="text-sm text-slate-300 hover:text-[#168BFF] transition-colors font-semibold"
+                  >
+                    contact@tranquelent.com
+                  </a>
                 </div>
               </div>
             </div>

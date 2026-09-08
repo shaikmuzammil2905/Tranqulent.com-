@@ -1,16 +1,16 @@
-import type { Metadata } from "next";
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, Car, Factory, Radio, Cpu } from "lucide-react";
-import { INDUSTRIES_DATA, ADDITIONAL_INDUSTRIES } from "@/data/websiteData";
+import { ArrowRight, CheckCircle2, Car, Factory, Radio, Cpu, Sparkles } from "lucide-react";
+import { INDUSTRIES_DATA, ADDITIONAL_INDUSTRIES, AdditionalIndustryItem } from "@/data/websiteData";
 import CTASection from "@/components/CTASection";
-
-export const metadata: Metadata = {
-  title: "Industries | Tranquelent - Semiconductor & Technology Solutions",
-  description: "Tranquelent delivers specialized engineering services for Semiconductor & Electronics, Digital Engineering, Automotive, and Industrial Technology.",
-};
+import DetailModal, { DetailModalData } from "@/components/DetailModal";
 
 export default function IndustriesPage() {
+  const [activeIndustry, setActiveIndustry] = useState<AdditionalIndustryItem | null>(null);
+
   const getAdditionalIcon = (iconName: string) => {
     switch (iconName) {
       case "car":
@@ -26,6 +26,20 @@ export default function IndustriesPage() {
     }
   };
 
+  const modalData: DetailModalData | null = activeIndustry
+    ? {
+        title: activeIndustry.name,
+        category: `Industries • ${activeIndustry.name}`,
+        image: activeIndustry.image,
+        imageAlt: activeIndustry.name,
+        overview: activeIndustry.fullOverview,
+        capabilitiesTitle: "Domain Engineering Capabilities",
+        capabilities: activeIndustry.capabilities,
+        ctaText: `Inquire for ${activeIndustry.name}`,
+        ctaHref: "/contact-us",
+      }
+    : null;
+
   return (
     <div className="bg-white">
       {/* Industries Banner */}
@@ -40,7 +54,7 @@ export default function IndustriesPage() {
               Industries We Serve
             </h1>
             <p className="text-base sm:text-lg lg:text-xl text-slate-300 font-normal leading-relaxed">
-              We primarily serve the Semiconductor & Electronics industry, with a growing focus on Technology & Digital Engineering.
+              Delivering specialized, mission-critical engineering solutions across semiconductor ecosystems, smart mobility, industrial automation, telecommunications, and cutting-edge digital platforms.
             </p>
           </div>
         </div>
@@ -51,7 +65,7 @@ export default function IndustriesPage() {
         {INDUSTRIES_DATA.map((ind, idx) => (
           <div
             key={ind.id}
-            id={ind.id.includes("semiconductor") ? "semiconductor" : "digital"}
+            id={ind.id.includes("semiconductor") ? "semiconductor" : ind.id.includes("digital") ? "digital" : `ind-${ind.id}`}
             className={`grid grid-cols-1 lg:grid-cols-12 gap-12 items-center ${
               idx % 2 === 1 ? "lg:flex-row-reverse" : ""
             }`}
@@ -106,7 +120,7 @@ export default function IndustriesPage() {
         ))}
       </section>
 
-      {/* Expanding Reach Section (image copy 14) */}
+      {/* Expanding Reach Section - Additional Industries as Clickable Popup Cards */}
       <section className="py-20 bg-brand-light-grey border-y border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-14 sm:mb-16">
@@ -123,9 +137,11 @@ export default function IndustriesPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {ADDITIONAL_INDUSTRIES.map((ind) => (
-              <div
+              <button
                 key={ind.name}
-                className="group bg-white p-7 rounded-2xl border border-slate-200/80 shadow-xs flex flex-col justify-between transition-all duration-300 ease-out hover:-translate-y-1.5 hover:scale-[1.02] hover:shadow-xl hover:shadow-brand-blue/10 hover:border-brand-blue/40 cursor-pointer"
+                type="button"
+                onClick={() => setActiveIndustry(ind)}
+                className="group bg-white p-7 rounded-2xl border border-slate-200/80 shadow-xs flex flex-col justify-between transition-all duration-300 ease-out hover:-translate-y-1.5 hover:scale-[1.02] hover:shadow-xl hover:shadow-brand-blue/10 hover:border-brand-blue/40 cursor-pointer text-left"
               >
                 <div>
                   <div className="w-12 h-12 rounded-xl bg-brand-light-grey text-brand-blue flex items-center justify-center mb-5 transition-all duration-300 group-hover:scale-110 group-hover:bg-brand-blue group-hover:text-white shadow-2xs">
@@ -138,13 +154,23 @@ export default function IndustriesPage() {
                 <p className="text-xs sm:text-sm text-brand-slate leading-relaxed mt-2">
                   {ind.description}
                 </p>
-              </div>
+                <span className="mt-3 text-xs font-semibold text-brand-blue opacity-0 group-hover:opacity-100 transition-opacity">
+                  Click to explore →
+                </span>
+              </button>
             ))}
           </div>
         </div>
       </section>
 
       <CTASection />
+
+      {/* Industry Detail Popup Modal */}
+      <DetailModal
+        isOpen={Boolean(activeIndustry)}
+        onClose={() => setActiveIndustry(null)}
+        data={modalData}
+      />
     </div>
   );
 }

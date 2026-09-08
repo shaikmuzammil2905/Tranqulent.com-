@@ -134,10 +134,10 @@ export default function ServicesPage() {
                     <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs transition-all duration-300 hover:shadow-md hover:border-brand-blue/30">
                       <h4 className="text-xs font-bold tracking-wider text-brand-dark-navy uppercase mb-3 flex items-center gap-1.5">
                         <AlertCircle className="w-4 h-4 text-brand-blue" />
-                        Typical Engineering Challenges
+                        Engineering Deliverables
                       </h4>
                       <ul className="space-y-2 text-sm text-brand-slate font-normal">
-                        {svc.keyChallenges.map((ch) => (
+                        {svc.serviceDeliverables.map((ch: string) => (
                           <li key={ch} className="flex items-start gap-2">
                             <span className="text-brand-blue font-bold">•</span>
                             <span>{ch}</span>
