@@ -64,9 +64,7 @@ export default function ServicesPage() {
                       {getIcon(svc.iconType)}
                     </div>
                     <div>
-                      <span className="text-xs font-bold tracking-[0.2em] text-brand-blue uppercase block mb-1">
-                        CAPABILITY {svc.number}
-                      </span>
+  
                       <h2 className="text-2xl sm:text-3xl font-extrabold text-brand-dark-navy leading-tight mb-3">
                         {svc.title}
                       </h2>

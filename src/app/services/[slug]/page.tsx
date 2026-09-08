@@ -51,9 +51,7 @@ export default async function ServiceDetailPage({
           </Link>
 
           <div className="max-w-3xl">
-            <span className="text-xs font-bold tracking-[0.2em] text-[#168BFF] uppercase block mb-2">
-              CAPABILITY {service.number}
-            </span>
+
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-4">
               {service.title}
             </h1>
