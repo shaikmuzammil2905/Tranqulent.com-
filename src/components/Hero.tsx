@@ -9,6 +9,15 @@ import { motion, AnimatePresence } from "framer-motion"
 const heroSlides = [
   {
     id: 1,
+    image: "/images/hero-bg-cover.png",
+    eyebrow: "SEMICONDUCTOR ENGINEERING",
+    heading: "Engineering Intelligent Systems for",
+    highlight: "What's Next",
+    description:
+      "Comprehensive silicon design, verification, and implementation solutions — from architecture to tape-out across advanced technology nodes.",
+  },
+  {
+    id: 2,
     image: "/images/hero-slide-1.png",
     eyebrow: "EMBEDDED & HARDWARE ENGINEERING",
     heading: "Building the Foundation of",
@@ -17,7 +26,7 @@ const heroSlides = [
       "From firmware and RTOS to FPGA and connected systems — we engineer embedded solutions that power the next generation of smart devices.",
   },
   {
-    id: 2,
+    id: 3,
     image: "/images/hero-slide-2.png",
     eyebrow: "SOFTWARE & DIGITAL ENGINEERING",
     heading: "Accelerating Innovation Through",
@@ -26,22 +35,13 @@ const heroSlides = [
       "Cloud-native applications, AI-driven data pipelines, and DevOps platforms designed to scale your digital transformation journey.",
   },
   {
-    id: 3,
+    id: 4,
     image: "/images/hero-slide-3.png",
     eyebrow: "ENGINEERING & TECHNOLOGY CONSULTING",
     heading: "Strategic Advisory for",
     highlight: "Technology Excellence",
     description:
       "Architecture blueprints, technology roadmaps, and engineering strategy consulting to future-proof your innovation pipeline.",
-  },
-  {
-    id: 4,
-    image: "/images/hero-bg-cover.png",
-    eyebrow: "SEMICONDUCTOR ENGINEERING",
-    heading: "Engineering Intelligent Systems for",
-    highlight: "What's Next",
-    description:
-      "Comprehensive silicon design, verification, and implementation solutions — from architecture to tape-out across advanced technology nodes.",
   },
 ]
 
@@ -85,9 +85,9 @@ export default function Hero() {
                 className="object-cover object-center"
                 sizes="100vw"
               />
-              {/* Dark overlay gradient for text readability */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#03152B]/95 via-[#03152B]/70 to-[#03152B]/40 z-10" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#03152B]/80 via-transparent to-[#03152B]/30 z-10" />
+              {/* Lighter overlay — just enough for text readability while keeping bg visible */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#03152B]/80 via-[#03152B]/40 to-transparent z-10" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#03152B]/50 via-transparent to-transparent z-10" />
             </motion.div>
           ) : null
         )}
