@@ -34,6 +34,15 @@ const heroSlides = [
     description:
       "Architecture blueprints, technology roadmaps, and engineering strategy consulting to future-proof your innovation pipeline.",
   },
+  {
+    id: 4,
+    image: "/images/hero-bg-cover.png",
+    eyebrow: "SEMICONDUCTOR ENGINEERING",
+    heading: "Engineering Intelligent Systems for",
+    highlight: "What's Next",
+    description:
+      "Comprehensive silicon design, verification, and implementation solutions — from architecture to tape-out across advanced technology nodes.",
+  },
 ]
 
 const SLIDE_DURATION = 6000
