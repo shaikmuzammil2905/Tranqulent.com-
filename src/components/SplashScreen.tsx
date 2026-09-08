@@ -31,13 +31,13 @@ export default function SplashScreen() {
               initial={{ scale: 0.85, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
-              className="relative w-52 sm:w-64 h-16 sm:h-20 bg-white rounded-2xl p-3 shadow-2xl flex items-center justify-center border border-white/20"
+              className="relative w-52 sm:w-64 h-16 sm:h-20 rounded-2xl p-3 flex items-center justify-center"
             >
               <Image
                 src="/tranquelent-logo.png"
                 alt="Tranquelent Logo"
                 fill
-                className="object-contain p-2"
+                className="object-contain p-2 brightness-0 invert"
                 priority
               />
             </motion.div>

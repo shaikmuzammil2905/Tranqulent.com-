@@ -137,7 +137,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-14 sm:h-16">
           {/* Official Horizontal Logo: [Symbol] TRANQUELENT */}
           <Link href="/" className="flex items-center group">
-            <div className="relative h-10 sm:h-11 w-48 sm:w-56 transition-transform group-hover:scale-[1.01]">
+            <div className="relative h-12 sm:h-14 w-52 sm:w-64 transition-transform group-hover:scale-[1.01]">
               <Image
                 src="/tranquelent-logo.png"
                 alt="Tranquelent Logo - Engineering What's Next"

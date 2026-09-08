@@ -24,13 +24,13 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-4 space-y-5">
             <Link href="/" className="inline-block">
-              <div className="relative h-10 w-52 bg-white rounded-lg p-1.5 shadow-sm">
+              <div className="relative h-11 w-56">
                 <Image
                   src="/tranquelent-logo.png"
                   alt="Tranquelent Logo"
                   fill
-                  className="object-contain object-left px-2"
-                  sizes="210px"
+                  className="object-contain object-left brightness-0 invert"
+                  sizes="224px"
                 />
               </div>
             </Link>
