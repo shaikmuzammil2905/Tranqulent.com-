@@ -20,10 +20,37 @@ export default function ContactPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setSubmitted(true);
-    }, 800);
+    // Gather form data
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    const payload = {
+      name: formData.get("name")?.toString() ?? "",
+      email: formData.get("email")?.toString() ?? "",
+      company: formData.get("company")?.toString() ?? "",
+      phone: formData.get("phone")?.toString() ?? "",
+      areaOfInterest: formData.get("areaOfInterest")?.toString() ?? "",
+      message: formData.get("message")?.toString() ?? "",
+    };
+    // Send to API route
+    fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("Network response was not ok");
+        return res.json();
+      })
+      .then((data) => {
+        setLoading(false);
+        setSubmitted(true);
+        form.reset();
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("Failed to send inquiry. Please try again later.");
+        setLoading(false);
+      });
   };
 
   return (
