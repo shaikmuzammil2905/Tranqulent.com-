@@ -14,11 +14,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const smtpUser = process.env.SMTP_USER || "muzammilshaik826@gmail.com";
-    const smtpPass = process.env.SMTP_PASS || "jepwkwtganezkwrq";
+    const smtpUser = process.env.SMTP_USER || "contact@tranquelent.com";
+    const smtpPass = process.env.SMTP_PASS || "jepw kwtg anez kwrq";
     const smtpHost = process.env.SMTP_HOST || "smtp.gmail.com";
-    const smtpPort = Number(process.env.SMTP_PORT) || 465;
-    const smtpSecure = process.env.SMTP_SECURE !== "false"; // default true for 465
+    const smtpPort = Number(process.env.SMTP_PORT) || 587;
+    const smtpSecure = process.env.SMTP_SECURE === "true"; // false for port 587 (STARTTLS)
     const recipientAdmin = process.env.SMTP_TO || "contact@tranquelent.com";
 
     // Create transporter using Gmail SMTP credentials
@@ -29,6 +29,9 @@ export async function POST(request: NextRequest) {
       auth: {
         user: smtpUser,
         pass: smtpPass,
+      },
+      tls: {
+        rejectUnauthorized: false,
       },
     });
 
