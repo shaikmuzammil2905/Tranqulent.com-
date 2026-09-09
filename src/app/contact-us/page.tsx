@@ -20,35 +20,34 @@ export default function ContactPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    // Gather form data
-    const form = e.target as HTMLFormElement;
-    const formData = new FormData(form);
-    const payload = {
-      name: formData.get("name")?.toString() ?? "",
-      email: formData.get("email")?.toString() ?? "",
-      company: formData.get("company")?.toString() ?? "",
-      phone: formData.get("phone")?.toString() ?? "",
-      areaOfInterest: formData.get("areaOfInterest")?.toString() ?? "",
-      message: formData.get("message")?.toString() ?? "",
-    };
-    // Send to API route
+    // Send form state to API route
     fetch("/api/contact", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(formData),
     })
-      .then((res) => {
-        if (!res.ok) throw new Error("Network response was not ok");
-        return res.json();
+      .then(async (res) => {
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.error || "Failed to send inquiry.");
+        }
+        return data;
       })
-      .then((data) => {
+      .then(() => {
         setLoading(false);
         setSubmitted(true);
-        form.reset();
+        setFormData({
+          name: "",
+          email: "",
+          company: "",
+          phone: "",
+          areaOfInterest: "Semiconductor Engineering",
+          message: "",
+        });
       })
       .catch((err) => {
-        console.error(err);
-        alert("Failed to send inquiry. Please try again later.");
+        console.error("Form submit error:", err);
+        alert(err.message || "Failed to send inquiry. Please try again later.");
         setLoading(false);
       });
   };
@@ -113,6 +112,7 @@ export default function ContactPage() {
                     </label>
                     <input
                       type="text"
+                      name="name"
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -127,6 +127,7 @@ export default function ContactPage() {
                     </label>
                     <input
                       type="email"
+                      name="email"
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -143,6 +144,7 @@ export default function ContactPage() {
                     </label>
                     <input
                       type="text"
+                      name="company"
                       required
                       value={formData.company}
                       onChange={(e) => setFormData({ ...formData, company: e.target.value })}
@@ -157,6 +159,7 @@ export default function ContactPage() {
                     </label>
                     <input
                       type="tel"
+                      name="phone"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="+1 (555) 000-0000"
@@ -170,6 +173,7 @@ export default function ContactPage() {
                     Area of Interest *
                   </label>
                   <select
+                    name="areaOfInterest"
                     value={formData.areaOfInterest}
                     onChange={(e) => setFormData({ ...formData, areaOfInterest: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl bg-brand-light-grey border border-slate-200 text-sm text-brand-dark-navy focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue transition-all"
@@ -187,6 +191,7 @@ export default function ContactPage() {
                     Project / Engineering Overview *
                   </label>
                   <textarea
+                    name="message"
                     rows={4}
                     required
                     value={formData.message}
