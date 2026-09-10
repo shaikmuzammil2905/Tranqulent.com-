@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const smtpUser = process.env.SMTP_USER || "contact@tranquelent.com";
+    const smtpUser = process.env.SMTP_USER || "Swathi.shetty@tranquelent.com";
     const smtpPass = process.env.SMTP_PASS || "jepw kwtg anez kwrq";
     const smtpHost = process.env.SMTP_HOST || "smtp.gmail.com";
     const smtpPort = Number(process.env.SMTP_PORT) || 587;
