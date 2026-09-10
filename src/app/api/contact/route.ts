@@ -14,42 +14,27 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const smtpUser = process.env.SMTP_USER || "Swathi.shetty@tranquelent.com";
-    const smtpPass = process.env.SMTP_PASS || "jepw kwtg anez kwrq";
-    const smtpHost = process.env.SMTP_HOST || "smtp.gmail.com";
-    const smtpPort = Number(process.env.SMTP_PORT) || 587;
-    const smtpSecure = process.env.SMTP_SECURE === "true";
-    const recipientAdmin = process.env.SMTP_TO || "Swathi.shetty@tranquelent.com";
+    // SMTP credentials (Swathi.shetty@tranquelent.com)
+    const smtpUser = (process.env.SMTP_USER || "Swathi.shetty@tranquelent.com").trim();
+    const rawPass = process.env.SMTP_PASS || "jepw kwtg anez kwrq";
+    const smtpPass = rawPass.replace(/\s+/g, "").trim();
+    const recipientAdmin = (process.env.SMTP_TO || "Swathi.shetty@tranquelent.com").trim();
 
-    // Create transporter - use Gmail service shorthand for reliability
-    const isGmail = smtpHost.includes("gmail");
-    const transporter = nodemailer.createTransport(
-      isGmail
-        ? {
-            service: "gmail",
-            auth: { user: smtpUser, pass: smtpPass },
-            connectionTimeout: 10000,
-            greetingTimeout: 10000,
-            socketTimeout: 15000,
-          }
-        : {
-            host: smtpHost,
-            port: smtpPort,
-            secure: smtpSecure,
-            auth: { user: smtpUser, pass: smtpPass },
-            tls: { rejectUnauthorized: false },
-            connectionTimeout: 10000,
-            greetingTimeout: 10000,
-            socketTimeout: 15000,
-          }
-    );
+    // Create Gmail transporter
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: smtpUser,
+        pass: smtpPass,
+      },
+    });
 
-    // 1. Admin Email (Notification to Tranquelent Team — sent to Swathi)
+    // 1. Admin Email (Sent directly to Swathi with all form details)
     const mailOptionsAdmin = {
       from: `"Tranquelent Inquiry Form" <${smtpUser}>`,
       to: recipientAdmin,
       replyTo: email,
-      subject: `New Inquiry: ${areaOfInterest} — from ${name} (${company})`,
+      subject: `New Engineering Inquiry: ${areaOfInterest} — ${name} (${company})`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; background-color: #ffffff;">
           <div style="background: #03182E; padding: 24px 32px;">
@@ -173,14 +158,14 @@ Tranquelent Private Limited
       `.trim(),
     };
 
-    // Send admin email first (critical), then customer confirmation (non-critical)
+    // Send admin email first (critical - goes directly to Swathi)
     await transporter.sendMail(mailOptionsAdmin);
 
-    // Customer confirmation — don't fail the whole request if this fails
+    // Send customer confirmation (non-critical)
     try {
       await transporter.sendMail(mailOptionsCustomer);
     } catch (custErr: any) {
-      console.error("Failed to send customer confirmation email (non-critical):", custErr);
+      console.warn("Customer confirmation email could not be sent:", custErr?.message || custErr);
     }
 
     return Response.json(
@@ -190,7 +175,7 @@ Tranquelent Private Limited
   } catch (error: any) {
     console.error("Contact form error:", error?.message || error);
     return Response.json(
-      { error: "Failed to send your inquiry. Please try again later or email us directly at contact@tranquelent.com." },
+      { error: error?.message || "Failed to send inquiry. Please try again later." },
       { status: 500 }
     );
   }
