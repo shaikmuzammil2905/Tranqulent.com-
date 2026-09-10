@@ -18,29 +18,56 @@ export async function POST(request: NextRequest) {
     const smtpPass = process.env.SMTP_PASS || "jepw kwtg anez kwrq";
     const smtpHost = process.env.SMTP_HOST || "smtp.gmail.com";
     const smtpPort = Number(process.env.SMTP_PORT) || 587;
-    const smtpSecure = process.env.SMTP_SECURE === "true"; // false for port 587 (STARTTLS)
+    const smtpSecure = process.env.SMTP_SECURE === "true";
     const recipientAdmin = process.env.SMTP_TO || "contact@tranquelent.com";
 
-    // Create transporter using Gmail SMTP credentials
+    // Create transporter - use service shorthand for Gmail for reliability
+    const isGmail = smtpHost.includes("gmail");
+    const transportConfig = isGmail
+      ? {
+          service: "gmail" as const,
+          auth: {
+            user: smtpUser,
+            pass: smtpPass,
+          },
+        }
+      : {
+          host: smtpHost,
+          port: smtpPort,
+          secure: smtpSecure,
+          auth: {
+            user: smtpUser,
+            pass: smtpPass,
+          },
+          tls: {
+            rejectUnauthorized: false,
+          },
+        };
+
     const transporter = nodemailer.createTransport({
-      host: smtpHost,
-      port: smtpPort,
-      secure: smtpSecure,
-      auth: {
-        user: smtpUser,
-        pass: smtpPass,
-      },
-      tls: {
-        rejectUnauthorized: false,
-      },
+      ...transportConfig,
+      connectionTimeout: 10000, // 10s connection timeout
+      greetingTimeout: 10000,   // 10s greeting timeout
+      socketTimeout: 15000,     // 15s socket timeout
     });
+
+    // Verify the SMTP connection before sending
+    try {
+      await transporter.verify();
+    } catch (verifyErr: any) {
+      console.error("SMTP connection verification failed:", verifyErr);
+      return Response.json(
+        { error: "Email service is temporarily unavailable. Please try again later or email us directly at contact@tranquelent.com." },
+        { status: 503 }
+      );
+    }
 
     // 1. Admin Email Options (Notification to Tranquelent Team)
     const mailOptionsAdmin = {
       from: `"Tranquelent Inquiry Form" <${smtpUser}>`,
       to: recipientAdmin,
       replyTo: email,
-      subject: `New Inquiry: ${areaOfInterest} — from ${name}`,
+      subject: `New Inquiry: ${areaOfInterest} — from ${name} (${company})`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; background-color: #ffffff;">
           <div style="background: #03182E; padding: 24px 32px;">
@@ -89,7 +116,7 @@ export async function POST(request: NextRequest) {
                   Area of Interest
                 </td>
                 <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; color: #475569;">
-                  <span style="background: #EFF6FF; color: #087CF5; padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; inline-block;">
+                  <span style="background: #EFF6FF; color: #087CF5; padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; display: inline-block;">
                     ${areaOfInterest}
                   </span>
                 </td>
@@ -220,20 +247,34 @@ Tranquelent Private Limited
       `.trim(),
     };
 
-    // Send both emails simultaneously
-    await Promise.all([
-      transporter.sendMail(mailOptionsAdmin),
-      transporter.sendMail(mailOptionsCustomer),
-    ]);
+    // Send admin email first, then customer confirmation
+    // Using sequential sends for better error isolation
+    try {
+      await transporter.sendMail(mailOptionsAdmin);
+    } catch (adminErr: any) {
+      console.error("Failed to send admin notification email:", adminErr);
+      return Response.json(
+        { error: "Failed to send inquiry. Please try again later or email us directly at contact@tranquelent.com." },
+        { status: 500 }
+      );
+    }
+
+    // Send customer confirmation (non-critical — don't fail the whole request if this fails)
+    try {
+      await transporter.sendMail(mailOptionsCustomer);
+    } catch (custErr: any) {
+      console.error("Failed to send customer confirmation email (non-critical):", custErr);
+      // Still return success since admin got the inquiry
+    }
 
     return Response.json(
       { success: true, message: "Your inquiry has been sent successfully." },
       { status: 200 }
     );
   } catch (error: any) {
-    console.error("Contact form error:", error);
+    console.error("Contact form error:", error?.message || error);
     return Response.json(
-      { error: error?.message || "Failed to send your inquiry. Please try again later." },
+      { error: "Failed to send your inquiry. Please try again later or email us directly at contact@tranquelent.com." },
       { status: 500 }
     );
   }
