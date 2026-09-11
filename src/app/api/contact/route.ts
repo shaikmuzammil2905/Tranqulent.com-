@@ -127,7 +127,7 @@ Submitted via the Tranquelent website contact form.
             </div>
 
             <p style="color: #64748B; font-size: 14px; line-height: 1.6; margin-bottom: 0;">
-              If you have any additional details or urgent updates, please feel free to reply directly to this email or contact us at <a href="mailto:contact@tranquelent.com" style="color: #087CF5; text-decoration: none;">contact@tranquelent.com</a>.
+              If you have any additional details or urgent updates, please feel free to reply directly to this email or contact us at <a href="mailto:hello@tranquelent.com" style="color: #087CF5; text-decoration: none;">hello@tranquelent.com</a>.
             </p>
           </div>
           
@@ -151,7 +151,7 @@ Summary of Submitted Details:
 - Project Overview:
 ${message}
 
-If you have any additional details or urgent updates, please feel free to reply directly to this email or contact us at contact@tranquelent.com.
+If you have any additional details or urgent updates, please feel free to reply directly to this email or contact us at hello@tranquelent.com.
 
 Best regards,
 Tranquelent Private Limited

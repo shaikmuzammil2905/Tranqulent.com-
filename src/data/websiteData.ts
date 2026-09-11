@@ -588,7 +588,7 @@ export const COMPANY_INFO = {
   name: "TRANQUELENT PRIVATE LIMITED",
   brand: "TRANQUELENT",
   tagline: "ENGINEERING WHAT'S NEXT",
-  email: "contact@tranquelent.com",
+  email: "hello@tranquelent.com",
   story: ["Silicon", "Systems", "Software", "Strategy"],
   addresses: {
     usa: {

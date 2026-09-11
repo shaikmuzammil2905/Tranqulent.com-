@@ -277,10 +277,10 @@ export default function ContactPage() {
                     Email
                   </div>
                   <a
-                    href="mailto:contact@tranquelent.com"
+                    href="mailto:hello@tranquelent.com"
                     className="text-base font-bold text-white mt-1 block hover:text-brand-electric-blue transition-colors"
                   >
-                    contact@tranquelent.com
+                    hello@tranquelent.com
                   </a>
                 </div>
               </div>
