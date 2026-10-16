@@ -12,6 +12,7 @@ export default function ContactPage() {
     phone: "",
     areaOfInterest: "Semiconductor Engineering",
     message: "",
+    _hp_check: "",
   });
 
   const [submitted, setSubmitted] = useState(false);
@@ -43,6 +44,7 @@ export default function ContactPage() {
           phone: "",
           areaOfInterest: "Semiconductor Engineering",
           message: "",
+          _hp_check: "",
         });
       })
       .catch((err) => {
@@ -105,6 +107,20 @@ export default function ContactPage() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Anti-spam honeypot - invisible to human users, traps automated bots */}
+                <div style={{ position: "absolute", left: "-9999px", top: "-9999px", opacity: 0, height: 0, width: 0, zIndex: -1 }} aria-hidden="true">
+                  <label htmlFor="_hp_check">Leave this field blank</label>
+                  <input
+                    type="text"
+                    id="_hp_check"
+                    name="_hp_check"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={formData._hp_check}
+                    onChange={(e) => setFormData({ ...formData, _hp_check: e.target.value })}
+                  />
+                </div>
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-xs font-bold tracking-wider text-brand-dark-navy uppercase mb-2">

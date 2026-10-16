@@ -4,11 +4,40 @@ import Image from "next/image";
 import { ArrowLeft, ArrowRight, CheckCircle2, AlertCircle, Cpu, Layers, Cloud, Users } from "lucide-react";
 import { CAPABILITIES_DATA } from "@/data/websiteData";
 import CTASection from "@/components/CTASection";
+import type { Metadata } from "next";
 
 export async function generateStaticParams() {
   return CAPABILITIES_DATA.map((svc) => ({
     slug: svc.slug,
   }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const service = CAPABILITIES_DATA.find((s) => s.slug === slug);
+
+  if (!service) {
+    return {};
+  }
+
+  const canonicalUrl = `https://www.tranquelent.com/services/${service.slug}`;
+
+  return {
+    title: service.title,
+    description: service.shortDescription,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: `${service.title} | Tranquelent`,
+      description: service.shortDescription,
+      url: canonicalUrl,
+    },
+  };
 }
 
 export default async function ServiceDetailPage({

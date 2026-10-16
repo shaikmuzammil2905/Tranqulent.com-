@@ -11,8 +11,39 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Tranquelent | Semiconductor & Engineering Technology Services",
-  description: "Tranquelent provides semiconductor, embedded, hardware, software and digital engineering services to help technology-driven organizations engineer intelligent systems.",
+  metadataBase: new URL("https://www.tranquelent.com"),
+  title: {
+    default: "Tranquelent | Semiconductor & Engineering Technology Services",
+    template: "%s | Tranquelent",
+  },
+  description:
+    "Tranquelent provides semiconductor, embedded, hardware, software and digital engineering services to help technology-driven organizations engineer intelligent systems.",
+  alternates: {
+    canonical: "https://www.tranquelent.com",
+  },
+  openGraph: {
+    type: "website",
+    siteName: "Tranquelent",
+    title: "Tranquelent | Semiconductor & Engineering Technology Services",
+    description:
+      "Tranquelent provides semiconductor, embedded, hardware, software and digital engineering services to help technology-driven organizations engineer intelligent systems.",
+    url: "https://www.tranquelent.com",
+    images: [
+      {
+        url: "/tranquelent-logo.png",
+        width: 1200,
+        height: 630,
+        alt: "Tranquelent — Engineering What's Next",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Tranquelent | Semiconductor & Engineering Technology Services",
+    description:
+      "Tranquelent provides semiconductor, embedded, hardware, software and digital engineering services to help technology-driven organizations engineer intelligent systems.",
+    images: ["/tranquelent-logo.png"],
+  },
   icons: {
     icon: [
       { url: "/favicon.ico" },
@@ -21,6 +52,17 @@ export const metadata: Metadata = {
     apple: [
       { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
   },
 };
 

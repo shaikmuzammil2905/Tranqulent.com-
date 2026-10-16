@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { CAPABILITIES_DATA } from "@/data/websiteData";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://tranquelent.com";
+  const baseUrl = "https://www.tranquelent.com";
 
   const staticRoutes = [
     "",
